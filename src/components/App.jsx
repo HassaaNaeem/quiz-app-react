@@ -7,6 +7,7 @@ import Loader from "./Loader";
 import Error from "./Error";
 import Start from "./Start";
 import Question from "./Question";
+import NextButton from "./NextButton";
 
 const initialState = {
   questions: [],
@@ -19,6 +20,7 @@ const initialState = {
 };
 
 function reducer(state, action) {
+  console.log(state);
   switch (action.type) {
     case "dataReceived":
       return { ...state, questions: action.payload, status: "ready" };
@@ -36,6 +38,8 @@ function reducer(state, action) {
             ? state.points + question.points
             : state.points,
       };
+    case "nextQuestion":
+      return { ...state, index: state.index + 1, answer: null };
     default:
       throw new Error("Action Unknown");
   }
@@ -72,11 +76,14 @@ function App() {
           <Start numOfQuestions={numOfQuestions} dispatch={dispatch} />
         )}
         {status == "active" && (
-          <Question
-            currentQuestion={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
+          <>
+            <Question
+              currentQuestion={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Hero>
     </div>
