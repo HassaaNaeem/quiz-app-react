@@ -13,6 +13,7 @@ const initialState = {
 
   // statuses: loading, error, ready, active, finished
   status: "loading",
+  index: 0,
 };
 
 function reducer(state, action) {
@@ -29,7 +30,10 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index }, dispatch] = useReducer(
+    reducer,
+    initialState,
+  );
 
   const numOfQuestions = questions.length;
 
@@ -55,7 +59,7 @@ function App() {
         {status == "ready" && (
           <Start numOfQuestions={numOfQuestions} dispatch={dispatch} />
         )}
-        {status == "active" && <Question />}
+        {status == "active" && <Question currentQuestion={questions[index]} />}
       </Hero>
     </div>
   );
