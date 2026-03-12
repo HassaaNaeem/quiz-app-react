@@ -3,6 +3,9 @@ import Header from "./Header";
 import Hero from "./Hero";
 import { useEffect } from "react";
 import { useReducer } from "react";
+import Loader from "./Loader";
+import Error from "./Error";
+import Start from "./Start";
 
 const initialState = {
   questions: [],
@@ -23,7 +26,9 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+
+  const numOfQuestions = questions.length;
 
   useEffect(() => {
     const getQuestions = async () => {
@@ -42,8 +47,9 @@ function App() {
     <div className="app">
       <Header />
       <Hero>
-        <p>1/15</p>
-        <p>Question?</p>
+        {status === "loading" && <Loader />}
+        {status == "error" && <Error />}
+        {status == "ready" && <Start numOfQuestions={numOfQuestions} />}
       </Hero>
     </div>
   );
