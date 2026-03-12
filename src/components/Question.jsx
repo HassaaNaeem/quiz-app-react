@@ -1,12 +1,12 @@
 import React from "react";
 import Options from "./Options";
 
-function Question({ currentQuestion }) {
+function Question({ currentQuestion, dispatch, answer }) {
   return (
     <div>
       <h4>{currentQuestion.question}</h4>
 
-      <Options options={currentQuestion.options} />
+      <Options question={currentQuestion} dispatch={dispatch} answer={answer} />
     </div>
   );
 }
