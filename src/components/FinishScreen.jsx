@@ -1,6 +1,6 @@
 import React from "react";
 
-function FinishScreen({ points, totalPoints }) {
+function FinishScreen({ points, totalPoints, highscore }) {
   const percentage = (points / totalPoints) * 100;
   return (
     <div>
@@ -8,6 +8,7 @@ function FinishScreen({ points, totalPoints }) {
         You scored <strong>{points}</strong> out of {totalPoints} (
         {Math.ceil(percentage)}%)
       </p>
+      <p className="highscore">(Highscore: {highscore} points)</p>
     </div>
   );
 }
