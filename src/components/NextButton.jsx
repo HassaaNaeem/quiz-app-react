@@ -1,22 +1,19 @@
 import React from "react";
+import { useQuiz } from "../context/QuizContext";
 
-function NextButton({ dispatch, index, numOfQuestions, answer }) {
+function NextButton() {
+  const { index, numOfQuestions, answer, nextQuestion, finishedQuiz } =
+    useQuiz();
   if (answer == null) return;
   if (index + 1 < numOfQuestions)
     return (
-      <button
-        className="btn btn-ui"
-        onClick={() => dispatch({ type: "nextQuestion" })}
-      >
+      <button className="btn btn-ui" onClick={nextQuestion}>
         Next
       </button>
     );
   if (index + 1 == numOfQuestions)
     return (
-      <button
-        className="btn btn-ui"
-        onClick={() => dispatch({ type: "finished" })}
-      >
+      <button className="btn btn-ui" onClick={finishedQuiz}>
         Finish
       </button>
     );

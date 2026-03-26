@@ -1,8 +1,6 @@
 import React from "react";
-import { useQuiz } from "../context/QuizContext";
 
-function FinishScreen() {
-  const { points, totalPoints, highscore, restartQuiz } = useQuiz();
+function FinishScreen({ points, totalPoints, highscore, dispatch }) {
   const percentage = (points / totalPoints) * 100;
   return (
     <div>
@@ -11,7 +9,10 @@ function FinishScreen() {
         {Math.ceil(percentage)}%)
       </p>
       <p className="highscore">(Highscore: {highscore} points)</p>
-      <button className="btn btn-ui" onClick={restartQuiz}>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "restart" })}
+      >
         Restart
       </button>
     </div>
